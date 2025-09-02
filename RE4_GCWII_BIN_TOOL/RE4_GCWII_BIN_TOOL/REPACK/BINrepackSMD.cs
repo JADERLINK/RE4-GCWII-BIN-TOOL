@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using RE4_GCWII_BIN_TOOL.REPACK.Structures;
-using RE4_GCWII_BIN_TOOL.ALL;
 using SimpleEndianBinaryIO;
+using SHARED_TOOLS.ALL;
+using SHARED_TOOLS.REPACK;
 
 namespace RE4_GCWII_BIN_TOOL.REPACK
 {

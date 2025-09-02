@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using RE4_GCWII_BIN_TOOL.ALL;
-using SimpleEndianBinaryIO;
+using SHARED_TOOLS.ALL;
 
 namespace RE4_GCWII_BIN_TOOL.EXTRACT
 {
@@ -167,27 +166,102 @@ namespace RE4_GCWII_BIN_TOOL.EXTRACT
 
 
             text.WriteLine("end");
-            text.Write(Shared.HeaderTextSmd());
+            text.Write(SHARED_TOOLS.Shared.HeaderTextSmd());
             text.Close();
         }
 
         public static void CreateOBJ(GCWIIBIN bin, string baseDirectory, string baseFileName)
         {
+            //calculo para inserir as cores no arquivo sem erro. 
+            // int vertex_id, HashSet int color_id
+            Dictionary<int, HashSet<int>> DicVertexWithColorLists = new Dictionary<int, HashSet<int>>();
+            // (int vertex_id, int color_id), int new_vertex_id
+            Dictionary<(int vertex_id, int color_id), int> DicNewVextexId = new Dictionary<(int vertex_id, int color_id), int>();
+            for (int g = 0; g < bin.Materials.Length; g++)
+            {
+                for (int i = 0; i < bin.Materials[g].face_index_array.Length; i++)
+                {
+                    int vextex_id1 = bin.Materials[g].face_index_array[i].i1.indexVertex;
+                    int vextex_id2 = bin.Materials[g].face_index_array[i].i2.indexVertex;
+                    int vextex_id3 = bin.Materials[g].face_index_array[i].i3.indexVertex;
+
+                    int color_id1 = 0;
+                    int color_id2 = 0;
+                    int color_id3 = 0;
+
+                    if (bin.Header.ReturnsHasEnableVertexColorsTag())
+                    {
+                        color_id1 = bin.Materials[g].face_index_array[i].i1.indexColor;
+                        color_id2 = bin.Materials[g].face_index_array[i].i2.indexColor;
+                        color_id3 = bin.Materials[g].face_index_array[i].i3.indexColor;
+                    }
+
+                    if (DicVertexWithColorLists.ContainsKey(vextex_id1))
+                    {
+                        DicVertexWithColorLists[vextex_id1].Add(color_id1);
+                    }
+                    else
+                    {
+                        DicVertexWithColorLists.Add(vextex_id1, new HashSet<int> { color_id1 });
+                    }
+
+                    if (DicVertexWithColorLists.ContainsKey(vextex_id2))
+                    {
+                        DicVertexWithColorLists[vextex_id2].Add(color_id2);
+                    }
+                    else
+                    {
+                        DicVertexWithColorLists.Add(vextex_id2, new HashSet<int> { color_id2 });
+                    }
+
+                    if (DicVertexWithColorLists.ContainsKey(vextex_id3))
+                    {
+                        DicVertexWithColorLists[vextex_id3].Add(color_id3);
+                    }
+                    else
+                    {
+                        DicVertexWithColorLists.Add(vextex_id3, new HashSet<int> { color_id3 });
+                    }
+                }
+            }
+
+            {
+                int new_vertex_id_counter = 0;
+                foreach (var item in DicVertexWithColorLists.OrderBy(a => a.Key).ToArray())
+                {
+                    foreach (var color in item.Value)
+                    {
+                        DicNewVextexId.Add((item.Key, color), new_vertex_id_counter);
+                        new_vertex_id_counter++;
+                    }
+                }
+            }
+
             var obj = new FileInfo(Path.Combine(baseDirectory, baseFileName + ".obj")).CreateText();
 
-            obj.WriteLine(Shared.HeaderText());
+            obj.WriteLine(SHARED_TOOLS.Shared.HeaderText());
 
             obj.WriteLine("mtllib " + baseFileName + ".mtl");
 
             float extraScale = CONSTs.GLOBAL_POSITION_SCALE * get_scale_from_vertex_scale(bin.Header.vertex_scale);
 
-            for (int i = 0; i < bin.Vertex_Position_Array.Length; i++)
+            foreach (var item in DicNewVextexId)
             {
-                float vx = bin.Vertex_Position_Array[i].vx / extraScale;
-                float vy = bin.Vertex_Position_Array[i].vy / extraScale;
-                float vz = bin.Vertex_Position_Array[i].vz / extraScale;
+                float vx = bin.Vertex_Position_Array[item.Key.vertex_id].vx / extraScale;
+                float vy = bin.Vertex_Position_Array[item.Key.vertex_id].vy / extraScale;
+                float vz = bin.Vertex_Position_Array[item.Key.vertex_id].vz / extraScale;
 
                 string v = "v " + vx.ToFloatString() + " " + vy.ToFloatString() + " " + vz.ToFloatString();
+
+                if (bin.Header.ReturnsHasEnableVertexColorsTag() && bin.Vertex_Color_Array.Length > item.Key.color_id)
+                {
+                    float r = bin.Vertex_Color_Array[item.Key.color_id].r / 255f;
+                    float g = bin.Vertex_Color_Array[item.Key.color_id].g / 255f;
+                    float b = bin.Vertex_Color_Array[item.Key.color_id].b / 255f;
+                    float a = bin.Vertex_Color_Array[item.Key.color_id].a / 255f;
+
+                    v += " " + r.ToFloatString() + " " + g.ToFloatString() + " " + b.ToFloatString() + " " + a.ToFloatString();
+                }
 
                 obj.WriteLine(v);
             }
@@ -234,9 +308,13 @@ namespace RE4_GCWII_BIN_TOOL.EXTRACT
 
                 for (int i = 0; i < bin.Materials[g].face_index_array.Length; i++)
                 {
-                    string av = (bin.Materials[g].face_index_array[i].i1.indexVertex + 1).ToString();
-                    string bv = (bin.Materials[g].face_index_array[i].i2.indexVertex + 1).ToString();
-                    string cv = (bin.Materials[g].face_index_array[i].i3.indexVertex + 1).ToString();
+                    int avid = DicNewVextexId[(bin.Materials[g].face_index_array[i].i1.indexVertex, bin.Materials[g].face_index_array[i].i1.indexColor)];
+                    int bvid = DicNewVextexId[(bin.Materials[g].face_index_array[i].i2.indexVertex, bin.Materials[g].face_index_array[i].i2.indexColor)];
+                    int cvid = DicNewVextexId[(bin.Materials[g].face_index_array[i].i3.indexVertex, bin.Materials[g].face_index_array[i].i3.indexColor)];
+
+                    string av = (avid + 1).ToString();
+                    string bv = (bvid + 1).ToString();
+                    string cv = (cvid + 1).ToString();
 
                     string an = (bin.Materials[g].face_index_array[i].i1.indexNormal + 1).ToString();
                     string bn = (bin.Materials[g].face_index_array[i].i2.indexNormal + 1).ToString();
@@ -260,7 +338,7 @@ namespace RE4_GCWII_BIN_TOOL.EXTRACT
         {
 
             var idx = new FileInfo(Path.Combine(baseDirectory, baseFileName + ".idxggbin")).CreateText();
-            idx.WriteLine(Shared.HeaderText());
+            idx.WriteLine(SHARED_TOOLS.Shared.HeaderText());
             idx.WriteLine();
             idx.WriteLine();
 
@@ -271,18 +349,18 @@ namespace RE4_GCWII_BIN_TOOL.EXTRACT
                 idx.WriteLine("UseWeightMap:" + (bin.Header.weightmap_count != 0));
                 idx.WriteLine("EnableAdjacentBoneTag:" + bin.Header.ReturnsHasEnableAdjacentBoneTag());
                 idx.WriteLine("EnableBonepairTag:" + bin.Header.ReturnsHasEnableBonepairTag());
-                //idx.WriteLine("UseVertexColor:False");
+                idx.WriteLine("UseVertexColor:False");
             }
             else
             {
                 idx.WriteLine("IsRe1Style:True");
             }
 
-            idx.WriteLine("ObjFileUseBone:0");
+            idx.WriteLine("ObjFileUseBone:" + bin.Bones.Min(x => x.BoneID).ToString());
 
             idx.WriteLine();
             idx.WriteLine();
-            idx.WriteLine("## Bones");
+            idx.WriteLine("## BoneLine: <boneId:number> <ParentId:number> <x:float> <-z:float> <y:float>");
             for (int i = 0; i < bin.Bones.Length; i++)
             {
                 float p1 = bin.Bones[i].PositionX / CONSTs.GLOBAL_POSITION_SCALE;
@@ -303,7 +381,7 @@ namespace RE4_GCWII_BIN_TOOL.EXTRACT
             {
                 idx.WriteLine();
                 idx.WriteLine();
-                idx.WriteLine("## BonePairs:");
+                idx.WriteLine("## BonePair: <bone1:number> <bone2:number> <bone3:number> <unk:number>");
 
                 for (int i = 0; i < bin.BonePairs.Length; i++)
                 {

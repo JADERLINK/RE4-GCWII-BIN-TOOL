@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Globalization;
-using RE4_GCWII_BIN_TOOL.EXTRACT;
+using SHARED_TOOLS.ALL;
+
 
 namespace RE4_GCWII_BIN_TOOL.ALL
 {
@@ -54,7 +53,7 @@ namespace RE4_GCWII_BIN_TOOL.ALL
 
         private static TexPathRef GetTexPathRef(byte Index, string baseFileName)
         {
-            return new TexPathRef(baseFileName, Index, "png");
+            return new TexPathRef(baseFileName.Replace(" ", "_"), Index, "png");
         }
 
     }

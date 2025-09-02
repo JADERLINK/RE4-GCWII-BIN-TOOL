@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace RE4_GCWII_BIN_TOOL.ALL
+namespace SHARED_TOOLS.ALL
 {
     /// <summary>
-    /// representa um material do .bin
+    /// representa um material do BIN
     /// </summary>
     public class MaterialPart
     {

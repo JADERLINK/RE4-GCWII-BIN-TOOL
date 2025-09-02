@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using RE4_GCWII_BIN_TOOL.ALL;
+using SHARED_TOOLS.ALL;
 
 namespace RE4_GCWII_BIN_TOOL.EXTRACT
 {

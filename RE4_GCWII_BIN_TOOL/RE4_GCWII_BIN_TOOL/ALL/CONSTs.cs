@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace RE4_GCWII_BIN_TOOL.ALL
+namespace SHARED_TOOLS.ALL
 {
     public static class CONSTs
     {

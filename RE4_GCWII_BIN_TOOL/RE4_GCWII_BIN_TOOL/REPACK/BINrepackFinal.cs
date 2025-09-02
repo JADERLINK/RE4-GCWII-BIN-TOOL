@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using RE4_GCWII_BIN_TOOL.REPACK.Structures;
 
 namespace RE4_GCWII_BIN_TOOL.REPACK
@@ -22,7 +21,7 @@ namespace RE4_GCWII_BIN_TOOL.REPACK
 
             List<FinalMaterialGroup> Groups = new List<FinalMaterialGroup>();
 
-            foreach (var item in intermediaryStructure.Groups)
+            foreach (var item in intermediaryStructure.Groups.OrderBy(a => a.Key).ToArray())
             {
                 FinalMaterialGroup group = new FinalMaterialGroup();
                 group.materialName = item.Key;
@@ -50,7 +49,15 @@ namespace RE4_GCWII_BIN_TOOL.REPACK
                         ushort weightMapIndex = (ushort)WeightMaps.IndexOf(weightMap);
 
                         Vertex_Position_Array.Add((vertex.PosX, vertex.PosY, vertex.PosZ, weightMapIndex));
-                        Vertex_Normal_Array.Add((vertex.NormalX, vertex.NormalY, vertex.NormalZ, weightMapIndex));
+
+                        var NORMAL = (vertex.NormalX, vertex.NormalY, vertex.NormalZ, weightMapIndex);
+
+                        if (!Vertex_Normal_Array.Contains(NORMAL))
+                        {
+                            Vertex_Normal_Array.Add(NORMAL);
+                        }
+
+                        ushort NORMAL_Index = (ushort)Vertex_Normal_Array.IndexOf(NORMAL);
 
                         var UV = (vertex.TextureU, vertex.TextureV);
 
@@ -59,7 +66,7 @@ namespace RE4_GCWII_BIN_TOOL.REPACK
                             Vertex_UV_Array.Add(UV);
                         }
 
-                        ushort UVIndex = (ushort)Vertex_UV_Array.IndexOf(UV);
+                        ushort UV_Index = (ushort)Vertex_UV_Array.IndexOf(UV);
 
                         var COLOR = (vertex.ColorA, vertex.ColorR, vertex.ColorG, vertex.ColorB);
 
@@ -68,13 +75,13 @@ namespace RE4_GCWII_BIN_TOOL.REPACK
                             Vertex_Color_Array.Add(COLOR);
                         }
 
-                        ushort COLORIndex = (ushort)Vertex_Color_Array.IndexOf(COLOR);
+                        ushort COLOR_Index = (ushort)Vertex_Color_Array.IndexOf(COLOR);
 
                         FinalFaceVextexIndex ii = new FinalFaceVextexIndex();
                         ii.indexVertex = (ushort)(Vertex_Position_Array.Count - 1);
-                        ii.indexNormal = (ushort)(Vertex_Normal_Array.Count - 1);
-                        ii.indexUV = UVIndex;
-                        ii.indexColor = COLORIndex;
+                        ii.indexNormal = NORMAL_Index;
+                        ii.indexUV = UV_Index;
+                        ii.indexColor = COLOR_Index;
                         vertexIndices.Add(ii);
                     }
 

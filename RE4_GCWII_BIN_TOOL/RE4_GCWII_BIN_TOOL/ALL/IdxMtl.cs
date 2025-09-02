@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Globalization;
+using SHARED_TOOLS.ALL;
 
 namespace RE4_GCWII_BIN_TOOL.ALL
 {
@@ -68,9 +68,9 @@ namespace RE4_GCWII_BIN_TOOL.ALL
 
         public TexPathRef(string BaseFileName, uint TextureID, string ImageFormat)
         {
-            this.BaseFileName = BaseFileName;
+            this.BaseFileName = BaseFileName ?? "null";
             this.TextureID = TextureID;
-            this.Format = ImageFormat.ToLowerInvariant();
+            Format = ImageFormat?.ToLowerInvariant() ?? "null";
         }
 
         public TexPathRef(string texturePath)
@@ -81,7 +81,7 @@ namespace RE4_GCWII_BIN_TOOL.ALL
                 texturePath = "";
             }
 
-            texturePath = texturePath.Replace("\\", "/").ToUpperInvariant();
+            texturePath = texturePath.Replace("\\\\", "/").Replace("\\", "/");
             var split = texturePath.Split('/').Where(s => s.Length != 0).ToArray();
 
             try
@@ -197,6 +197,5 @@ namespace RE4_GCWII_BIN_TOOL.ALL
             }
         }
     }
-
 
 }

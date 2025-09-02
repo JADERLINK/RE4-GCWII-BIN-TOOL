@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using RE4_GCWII_BIN_TOOL.ALL;
+using SHARED_TOOLS.ALL;
 
 namespace RE4_GCWII_BIN_TOOL.EXTRACT
 {
@@ -12,9 +12,8 @@ namespace RE4_GCWII_BIN_TOOL.EXTRACT
     {
         public static void CreateIdxMaterial(IdxMaterial idxmaterial, string baseDirectory, string baseFileName)
         {
-
             TextWriter text = new FileInfo(Path.Combine(baseDirectory, baseFileName + ".idxmaterial")).CreateText();
-            text.WriteLine(Shared.HeaderText());
+            text.WriteLine(SHARED_TOOLS.Shared.HeaderText());
             text.WriteLine();
             text.WriteLine();
 
@@ -94,7 +93,7 @@ namespace RE4_GCWII_BIN_TOOL.EXTRACT
             var inv = System.Globalization.CultureInfo.InvariantCulture;
 
             TextWriter text = new FileInfo(Path.Combine(baseDirectory, baseFileName + ".mtl")).CreateText();
-            text.WriteLine(Shared.HeaderText());
+            text.WriteLine(SHARED_TOOLS.Shared.HeaderText());
             text.WriteLine();
             text.WriteLine();
 

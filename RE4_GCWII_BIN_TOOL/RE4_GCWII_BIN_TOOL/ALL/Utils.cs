@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace RE4_GCWII_BIN_TOOL.ALL
+namespace SHARED_TOOLS.ALL
 {
     public static class Utils
     {
@@ -65,7 +64,7 @@ namespace RE4_GCWII_BIN_TOOL.ALL
 
         public static string ReturnValidFloatValue(string cont)
         {
-            bool Dot = false;
+            bool dot = false;
             bool negative = false;
 
             string res = "";
@@ -77,10 +76,10 @@ namespace RE4_GCWII_BIN_TOOL.ALL
                     negative = true;
                 }
 
-                if (Dot == false && c == '.')
+                if (dot == false && c == '.')
                 {
                     res += c;
-                    Dot = true;
+                    dot = true;
                 }
                 if (char.IsDigit(c))
                 {
@@ -92,11 +91,11 @@ namespace RE4_GCWII_BIN_TOOL.ALL
 
         public static short ParseFloatToShort(float value)
         {
-            string sv = value.ToString("F", System.Globalization.CultureInfo.InvariantCulture).Split('.')[0];
+            string sv = value.ToString("F", CultureInfo.InvariantCulture).Split('.')[0];
             int iv = 0;
             try
             {
-                iv = int.Parse(sv, System.Globalization.NumberStyles.Integer);
+                iv = int.Parse(sv, NumberStyles.Integer);
             }
             catch (Exception)
             {
@@ -152,6 +151,26 @@ namespace RE4_GCWII_BIN_TOOL.ALL
             return false;
         }
 
+        public static bool SetUintHex(ref string line, string key, ref uint varToSet)
+        {
+            if (line.StartsWith(key))
+            {
+                var split = line.Split(':');
+                if (split.Length >= 2)
+                {
+                    try
+                    {
+                        varToSet = uint.Parse(Utils.ReturnValidHexValue(split[1]), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
         public static bool SetUintDec(ref string line, string key, ref uint varToSet)
         {
             if (line.StartsWith(key))
@@ -162,6 +181,46 @@ namespace RE4_GCWII_BIN_TOOL.ALL
                     try
                     {
                         varToSet = uint.Parse(Utils.ReturnValidDecValue(split[1]), NumberStyles.Integer, CultureInfo.InvariantCulture);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public static bool SetUshortDec(ref string line, string key, ref ushort varToSet)
+        {
+            if (line.StartsWith(key))
+            {
+                var split = line.Split(':');
+                if (split.Length >= 2)
+                {
+                    try
+                    {
+                        varToSet = ushort.Parse(Utils.ReturnValidDecValue(split[1]), NumberStyles.Integer, CultureInfo.InvariantCulture);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public static bool SetFloatDec(ref string line, string key, ref float varToSet)
+        {
+            if (line.StartsWith(key))
+            {
+                var split = line.Split(':');
+                if (split.Length >= 2)
+                {
+                    try
+                    {
+                        varToSet = float.Parse(Utils.ReturnValidFloatValue(split[1]), NumberStyles.Float, CultureInfo.InvariantCulture);
                     }
                     catch (Exception)
                     {

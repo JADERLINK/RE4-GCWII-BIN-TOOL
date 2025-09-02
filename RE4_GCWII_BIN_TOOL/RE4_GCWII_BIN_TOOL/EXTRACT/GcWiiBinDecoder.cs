@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using RE4_GCWII_BIN_TOOL.ALL;
+using SHARED_TOOLS.ALL;
 using SimpleEndianBinaryIO;
 
 namespace RE4_GCWII_BIN_TOOL.EXTRACT
@@ -395,9 +395,9 @@ namespace RE4_GCWII_BIN_TOOL.EXTRACT
 
             for (int i = 0; i < count; i++)
             {
-                byte r = br.ReadByte();
-                byte g = br.ReadByte();
                 byte b = br.ReadByte();
+                byte g = br.ReadByte();
+                byte r = br.ReadByte();
                 byte a = br.ReadByte();
                 colors[i] = (a, r, g, b);
             }

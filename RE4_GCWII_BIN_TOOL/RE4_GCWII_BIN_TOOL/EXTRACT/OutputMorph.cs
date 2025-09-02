@@ -1,4 +1,4 @@
-﻿using RE4_GCWII_BIN_TOOL.ALL;
+﻿using SHARED_TOOLS.ALL;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,7 +32,7 @@ namespace RE4_GCWII_BIN_TOOL.EXTRACT
         {
             var obj = new FileInfo(Path.Combine(baseDirectory, baseFileName + ".obj")).CreateText();
 
-            obj.WriteLine(Shared.HeaderText());
+            obj.WriteLine(SHARED_TOOLS.Shared.HeaderText());
 
             obj.WriteLine("mtllib " + mtlName + ".mtl");
 
@@ -283,7 +283,7 @@ namespace RE4_GCWII_BIN_TOOL.EXTRACT
 
             text.WriteLine("end");
 
-            text.Write(Shared.HeaderTextSmd());
+            text.Write(SHARED_TOOLS.Shared.HeaderTextSmd());
             text.Close();
         }
 

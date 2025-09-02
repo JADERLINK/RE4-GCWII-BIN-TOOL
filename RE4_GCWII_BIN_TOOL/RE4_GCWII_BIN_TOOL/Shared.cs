@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace RE4_GCWII_BIN_TOOL
+namespace SHARED_TOOLS
 {
     public static class Shared
     {
-        private const string VERSION = "V.1.0.0 (2025-08-24)";
+        private const string VERSION = "V.1.0.1 (2025-09-02)";
 
         public static string HeaderText()
         {

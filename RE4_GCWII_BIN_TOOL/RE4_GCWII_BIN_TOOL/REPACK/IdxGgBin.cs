@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using RE4_GCWII_BIN_TOOL.ALL;
 using System.Globalization;
+using SHARED_TOOLS.ALL;
 
 namespace RE4_GCWII_BIN_TOOL.REPACK
 {
@@ -18,6 +18,7 @@ namespace RE4_GCWII_BIN_TOOL.REPACK
         public bool UseWeightMap;
         public bool EnableBonepairTag;
         public bool EnableAdjacentBoneTag;
+        public bool UseVertexColor;
         public bool IsRe1Style;
         public bool UseIdxMaterial;
     }
@@ -113,6 +114,7 @@ namespace RE4_GCWII_BIN_TOOL.REPACK
                      || Utils.SetBoolean(ref line, "USEWEIGHTMAP", ref idx.UseWeightMap)
                      || Utils.SetBoolean(ref line, "ENABLEADJACENTBONETAG", ref idx.EnableAdjacentBoneTag)
                      || Utils.SetBoolean(ref line, "ENABLEBONEPAIRTAG", ref idx.EnableBonepairTag)
+                     || Utils.SetBoolean(ref line, "USEVERTEXCOLOR", ref idx.UseVertexColor)
                      || Utils.SetBoolean(ref line, "ISRE1STYLE", ref idx.IsRe1Style)
                      || Utils.SetBoolean(ref line, "USEIDXMATERIAL", ref idx.UseIdxMaterial)
                         ;

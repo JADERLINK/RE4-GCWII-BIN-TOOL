@@ -1,9 +1,8 @@
-﻿using RE4_GCWII_BIN_TOOL.EXTRACT;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using RE4_GCWII_BIN_TOOL.EXTRACT;
 
 namespace RE4_GCWII_BIN_TOOL.ALL
 {

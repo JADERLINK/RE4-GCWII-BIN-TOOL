@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using RE4_GCWII_BIN_TOOL.ALL;
+using SHARED_TOOLS.ALL;
 
 namespace RE4_GCWII_BIN_TOOL.REPACK
 {
@@ -35,7 +36,7 @@ namespace RE4_GCWII_BIN_TOOL.REPACK
             idxmtl = new IdxMtl();
             idxmtl.MtlDic = new Dictionary<string, MtlObj>();
 
-            foreach (var mat in MtlMaterials)
+            foreach (var mat in MtlMaterials.OrderBy(a => a.Name.ToUpperInvariant()).ToArray())
             {
                 string name = mat.Name.Trim().ToUpperInvariant();
                 MtlObj mtlObj = new MtlObj();

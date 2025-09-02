@@ -14,7 +14,7 @@ namespace RE4_GCWII_BIN_TOOL
         {
             System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 
-            Console.WriteLine(Shared.HeaderText());
+            Console.WriteLine(SHARED_TOOLS.Shared.HeaderText());
 
             bool usingBatFile = false;
             int start = 0;
@@ -123,7 +123,7 @@ namespace RE4_GCWII_BIN_TOOL
             {
                 case ".OBJ":
                 case ".SMD":
-                    // modo repack, tem que carregar o .IDXUUBIN
+                    // modo repack, tem que carregar o .IDXGGBIN
 
                     string idxbinFormat = ".idxggbin";
                     string idxbinFilePath = Path.Combine(baseDirectory, baseName + idxbinFormat);
@@ -148,7 +148,7 @@ namespace RE4_GCWII_BIN_TOOL
 
             EXTRACT.GCWIIBIN BIN = null;
             EXTRACT.MorphBIN Morph = null;
-            ALL.IdxMaterial material = null;
+            SHARED_TOOLS.ALL.IdxMaterial material = null;
 
             REPACK.IdxGgBin idxbin = null;
 
@@ -162,7 +162,7 @@ namespace RE4_GCWII_BIN_TOOL
                 binFile.Close();
             }
 
-            if (idxggBinFile != null) //.IDXUHDBIN
+            if (idxggBinFile != null) //.IDXGGBIN
             {
                 idxbin = REPACK.IdxGgBinLoad.Load(idxggBinFile);
                 idxggBinFile.Close();
@@ -213,7 +213,7 @@ namespace RE4_GCWII_BIN_TOOL
 
             if (idxmaterialFile != null) //.IDXMATERIAL
             {
-                material = ALL.IdxMaterialLoad.Load(idxmaterialFile);
+                material = SHARED_TOOLS.ALL.IdxMaterialLoad.Load(idxmaterialFile);
                 idxmaterialFile.Close();
             }
 
@@ -227,10 +227,10 @@ namespace RE4_GCWII_BIN_TOOL
 
             if (file1Extension == ".IDXGGBIN") // repack sem modelo 3d
             {
-                material = new ALL.IdxMaterial();
-                material.MaterialDic = new Dictionary<string, ALL.MaterialPart>();
+                material = new SHARED_TOOLS.ALL.IdxMaterial();
+                material.MaterialDic = new Dictionary<string, SHARED_TOOLS.ALL.MaterialPart>();
 
-                REPACK.FinalBoneLine[] boneLines = REPACK.BinRepack.GetBoneLines(idxbin.Bones, Endianness.BigEndian);
+                SHARED_TOOLS.REPACK.FinalBoneLine[] boneLines = REPACK.BinRepack.GetBoneLines(idxbin.Bones, Endianness.BigEndian);
                 REPACK.Structures.FinalStructure final = new REPACK.Structures.FinalStructure();
                 final.Groups = new REPACK.Structures.FinalMaterialGroup[0];
                 final.Vertex_Color_Array = new (byte a, byte r, byte g, byte b)[0];
@@ -284,7 +284,7 @@ namespace RE4_GCWII_BIN_TOOL
                     new REPACK.MtlConverter().Convert(idxMtl, out material);
                 }
 
-                REPACK.FinalBoneLine[] boneLines = REPACK.BinRepack.GetBoneLines(idxbin.Bones, Endianness.BigEndian);
+                SHARED_TOOLS.REPACK.FinalBoneLine[] boneLines = REPACK.BinRepack.GetBoneLines(idxbin.Bones, Endianness.BigEndian);
                 REPACK.Structures.FinalStructure final = null;
 
                 byte vertex_scale = 0;
@@ -312,7 +312,7 @@ namespace RE4_GCWII_BIN_TOOL
                 Stream binstream = File.Open(binFilePath, FileMode.Create);
                 REPACK.BINmakeFile.MakeFile(binstream, 0, out _, final, boneLines, material,
                     idxbin.BonePairs, idxbin.UseAlternativeNormals, idxbin.UseWeightMap, idxbin.EnableBonepairTag,
-                    idxbin.EnableAdjacentBoneTag, false, idxbin.IsRe1Style, vertex_scale);
+                    idxbin.EnableAdjacentBoneTag, idxbin.UseVertexColor, idxbin.IsRe1Style, vertex_scale);
                 binstream.Close();
 
             }
@@ -323,7 +323,7 @@ namespace RE4_GCWII_BIN_TOOL
                     new REPACK.MtlConverter().Convert(idxMtl, out material);
                 }
 
-                REPACK.FinalBoneLine[] boneLines = null;
+                SHARED_TOOLS.REPACK.FinalBoneLine[] boneLines = null;
                 REPACK.Structures.FinalStructure final = null;
 
                 byte vertex_scale = 0;

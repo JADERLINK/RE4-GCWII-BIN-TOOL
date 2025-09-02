@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using SimpleEndianBinaryIO;
 
-namespace RE4_GCWII_BIN_TOOL.REPACK
+namespace SHARED_TOOLS.REPACK
 {
     public class FinalBoneLine
     {

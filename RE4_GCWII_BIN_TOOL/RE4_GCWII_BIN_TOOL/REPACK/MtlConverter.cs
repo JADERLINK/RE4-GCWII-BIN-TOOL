@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using RE4_GCWII_BIN_TOOL.ALL;
-using RE4_GCWII_BIN_TOOL.EXTRACT;
+using SHARED_TOOLS.ALL;
 
 namespace RE4_GCWII_BIN_TOOL.REPACK
 {
@@ -19,7 +18,7 @@ namespace RE4_GCWII_BIN_TOOL.REPACK
             idxMaterial.MaterialDic = new Dictionary<string, MaterialPart>();
             //-----
 
-            foreach (var item in idxmtl.MtlDic)
+            foreach (var item in idxmtl.MtlDic.OrderBy(a => a.Key).ToArray())
             {
                 MaterialPart mat = new MaterialPart();
                 mat.custom_specular_map = 255;
@@ -55,7 +54,7 @@ namespace RE4_GCWII_BIN_TOOL.REPACK
                     mat.intensity_specular_r = item.Value.Ks.GetB();
                     mat.specular_scale = item.Value.specular_scale;
 
-                    if (item.Value.ref_specular_map.BaseFileName == "generic_specular")
+                    if (item.Value.ref_specular_map.BaseFileName.ToLowerInvariant() == "generic_specular")
                     {
                         mat.generic_specular_map = (byte)item.Value.ref_specular_map.TextureID;
                     }

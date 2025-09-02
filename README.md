@@ -7,9 +7,18 @@ Extract and repack BIN files for RE4 OG GC/WII;
 Programa destinado a extrair e reempacotar os arquivos BIN do RE4 OG GC/WII;
 <br>Nota1: Além dos BIN do Re4, o programa também extrai os arquivos BIN do RE1 de GC;
 <br>Nota2: O repack dos BIN do Re1 são feitos para funcionar no Re4 e não no Re1;
-<br>Nota3: VertexColor não são suportados, nem no extract e nem no repack.
+<br><del>Nota3: VertexColor não são suportados, nem no extract e nem no repack.</del>
+<br>Nota3: Para os BIN do Re4 o VertexColor é extraído para o OBJ e pode ser reinserido no BIN, mas o campo "UseVertexColor" deve ser definido como 'true';
 <br>Nota4: Morph do RE4 são extraídos, porém, não podem ser feito o repack com eles. Ainda não foi implementada essa funcionalidade no programa.
 <br>Nota5: Morph dos Bin de Re1 não são suportados.
+
+## Updates
+
+**Update: V.1.0.1**
+<br> Corrigido bug dos materiais não serem ordenados em ordem alfabética;
+<br> Agora os materiais são ordenados em ordem alfabética, recomento que enumere os materiais, os materiais com texturas com transparência devem ficar no final;
+<br> Agora, a cor por vértice (VertexColor) é suportada nos BIN do Re4. Nota: A cor por vértice só pode ser usada no arquivo OBJ e a flag "UseVertexColor" deve ser definida como 'true';
+<br> E foram feitas melhorias no código;
 
 ## JADERLINK_RE4_GCWII_BIN_TOOL.exe
 
@@ -70,4 +79,4 @@ Encontra-se em "RE4_GCWII_BIN_TOOL\\CjClutter.ObjLoader.Loader", código modific
 **At.te: JADERLINK**
 <br>Thanks to "mariokart64n" and "Biohazard4X"
 <br>Material information by "Albert"
-<br>2025-08-24
+<br>2025-09-02

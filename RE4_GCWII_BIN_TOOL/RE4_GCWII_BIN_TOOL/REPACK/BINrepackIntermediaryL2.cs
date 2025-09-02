@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using RE4_GCWII_BIN_TOOL.REPACK.Structures;
-using RE4_GCWII_BIN_TOOL.ALL;
+using SHARED_TOOLS.ALL;
 
 namespace RE4_GCWII_BIN_TOOL.REPACK
 {
@@ -89,7 +88,7 @@ namespace RE4_GCWII_BIN_TOOL.REPACK
                     }
 
                 }
-                else if (count == 4) //vai virar guad
+                else if (count == 4) //vai virar quad
                 {
                     List<IntermediaryVertex> reordered = new List<IntermediaryVertex>();
                     reordered.Add(intermediaryMesh.Faces[i].Vertexs[2]);

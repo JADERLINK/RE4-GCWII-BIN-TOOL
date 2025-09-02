@@ -4,21 +4,23 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using RE4_GCWII_BIN_TOOL.REPACK.Structures;
-using RE4_GCWII_BIN_TOOL.ALL;
 using RE4_GCWII_BIN_TOOL.EXTRACT;
+using SHARED_TOOLS.ALL;
+using SHARED_TOOLS.REPACK;
 using SimpleEndianBinaryIO;
+
 
 namespace RE4_GCWII_BIN_TOOL.REPACK
 {
     public static class BINmakeFile
     {
         public static void MakeFile(Stream stream, long startOffset, out long endOffset,
-           FinalStructure finalStructure, FinalBoneLine[] boneLines, IdxMaterial material,
-           (ushort b1, ushort b2, ushort b3, ushort b4)[] BonePairLines, bool UseAltNormal,
-           bool UseWeightMap, bool EnableBonepairTag, bool EnableAdjacentBoneTag, bool UseColors,
-           bool IsRe1Style, byte vertex_scale)
+            FinalStructure finalStructure, FinalBoneLine[] boneLines, IdxMaterial material,
+            (ushort b1, ushort b2, ushort b3, ushort b4)[] BonePairLines, bool UseAltNormal,
+            bool UseWeightMap, bool EnableBonepairTag, bool EnableAdjacentBoneTag, bool UseColors,
+            bool IsRe1Style, byte vertex_scale)
         {
-            //header 0x60 bytes
+            //header 0x60 bytes or 0x40 bytes
 
             //bone lines
             //weightMap
@@ -161,10 +163,10 @@ namespace RE4_GCWII_BIN_TOOL.REPACK
             int tempOffset = 0;
             for (int i = 0; i < Vertex_Color_Array.Length; i++)
             {
-                b[tempOffset] = Vertex_Color_Array[i].a;
-                b[tempOffset+1] = Vertex_Color_Array[i].r;
-                b[tempOffset+2] = Vertex_Color_Array[i].g;
-                b[tempOffset+3] = Vertex_Color_Array[i].b;
+                b[tempOffset] = Vertex_Color_Array[i].b;
+                b[tempOffset+1] = Vertex_Color_Array[i].g;
+                b[tempOffset+2] = Vertex_Color_Array[i].r;
+                b[tempOffset+3] = Vertex_Color_Array[i].a;
 
                 tempOffset += 4;
             }
@@ -394,6 +396,7 @@ namespace RE4_GCWII_BIN_TOOL.REPACK
             {
                 header.unknown_x08 = 0x50;
                 texture1_flags = 0x0300;
+                binFlags |= (uint)BinFlags.EnableAdjacentBoneTag;
                 binFlags |= (uint)BinFlags.EnableBonepairTag;
             }
 
