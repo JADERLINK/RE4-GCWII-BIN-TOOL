@@ -37,44 +37,16 @@
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>RE4_GCWII_BIN_TOOL.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ALL\CONSTs.cs" />
-    <Compile Include="ALL\FloatExtensions.cs" />
-    <Compile Include="ALL\IdxMaterial.cs" />
-    <Compile Include="ALL\IdxMaterialLoad.cs" />
-    <Compile Include="ALL\IdxMaterialParser.cs" />
-    <Compile Include="ALL\IdxMtl.cs" />
-    <Compile Include="ALL\IdxMtlParser.cs" />
-    <Compile Include="ALL\MaterialPart.cs" />
-    <Compile Include="ALL\Utils.cs" />
-    <Compile Include="ALL\HeaderExtension.cs" />
-    <Compile Include="EXTRACT\MorphBIN.cs" />
-    <Compile Include="EXTRACT\MorphBinDecoder.cs" />
-    <Compile Include="EXTRACT\OutputFiles.cs" />
-    <Compile Include="EXTRACT\OutputMaterial.cs" />
-    <Compile Include="EXTRACT\GCWIIBIN.cs" />
-    <Compile Include="EXTRACT\GcWiiBinDecoder.cs" />
-    <Compile Include="EXTRACT\OutputMorph.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="REPACK\BINmakeFile.cs" />
-    <Compile Include="REPACK\BINrepackFinal.cs" />
-    <Compile Include="REPACK\BINrepackIntermediary.cs" />
-    <Compile Include="REPACK\BINrepackIntermediaryL2.cs" />
-    <Compile Include="REPACK\BINrepackOBJ.cs" />
-    <Compile Include="REPACK\BINrepackSMD.cs" />
-    <Compile Include="REPACK\FinalBoneLine.cs" />
-    <Compile Include="REPACK\IdxGgBin.cs" />
-    <Compile Include="REPACK\MtlConverter.cs" />
-    <Compile Include="REPACK\MtlLoad.cs" />
-    <Compile Include="REPACK\Structures\FinalStructure.cs" />
-    <Compile Include="REPACK\Structures\IntermediaryLevel2.cs" />
-    <Compile Include="REPACK\Structures\IntermediaryStructure.cs" />
-    <Compile Include="REPACK\Structures\StartStructure.cs" />
     <Compile Include="Shared.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,5 +56,7 @@
   <Import Project="..\SMD_READER_LIB\SMD_READER_LIB.projitems" Label="Shared" />
   <Import Project="..\SimpleEndianBinaryIO\SimpleEndianBinaryIO.projitems" Label="Shared" />
   <Import Project="..\CjClutter.ObjLoader.Loader\CjClutter.ObjLoader.Loader.projitems" Label="Shared" />
+  <Import Project="..\SHARED_TOOLS\SHARED_TOOLS.projitems" Label="Shared" />
+  <Import Project="..\SHARED_GCWII_BIN\SHARED_GCWII_BIN.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

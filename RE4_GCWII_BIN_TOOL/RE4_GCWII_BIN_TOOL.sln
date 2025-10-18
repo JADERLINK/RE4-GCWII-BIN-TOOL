@@ -11,11 +11,19 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CjClutter.ObjLoader.Loader"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SMD_READER_LIB", "SMD_READER_LIB\SMD_READER_LIB.shproj", "{41D7E25D-2731-4CCC-847A-F54591C4635C}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SHARED_TOOLS", "SHARED_TOOLS\SHARED_TOOLS.shproj", "{37AB8C65-6125-4036-9A48-34CF0EA9DED6}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SHARED_GCWII_BIN", "SHARED_GCWII_BIN\SHARED_GCWII_BIN.shproj", "{4C3AE7BB-E88B-4EBE-A22C-53F72B100D3B}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SHARED_TOOLS\SHARED_TOOLS.projitems*{37ab8c65-6125-4036-9a48-34cf0ea9ded6}*SharedItemsImports = 13
 		SMD_READER_LIB\SMD_READER_LIB.projitems*{41d7e25d-2731-4ccc-847a-f54591c4635c}*SharedItemsImports = 13
+		SHARED_GCWII_BIN\SHARED_GCWII_BIN.projitems*{4c3ae7bb-e88b-4ebe-a22c-53f72b100d3b}*SharedItemsImports = 13
 		SimpleEndianBinaryIO\SimpleEndianBinaryIO.projitems*{5ddb0d8f-d1ea-479f-8fac-be2b5c6bab65}*SharedItemsImports = 13
 		CjClutter.ObjLoader.Loader\CjClutter.ObjLoader.Loader.projitems*{71d68920-22e2-4b1b-8893-0baeb97ca3c6}*SharedItemsImports = 4
+		SHARED_GCWII_BIN\SHARED_GCWII_BIN.projitems*{71d68920-22e2-4b1b-8893-0baeb97ca3c6}*SharedItemsImports = 4
+		SHARED_TOOLS\SHARED_TOOLS.projitems*{71d68920-22e2-4b1b-8893-0baeb97ca3c6}*SharedItemsImports = 4
 		SimpleEndianBinaryIO\SimpleEndianBinaryIO.projitems*{71d68920-22e2-4b1b-8893-0baeb97ca3c6}*SharedItemsImports = 4
 		SMD_READER_LIB\SMD_READER_LIB.projitems*{71d68920-22e2-4b1b-8893-0baeb97ca3c6}*SharedItemsImports = 4
 		CjClutter.ObjLoader.Loader\CjClutter.ObjLoader.Loader.projitems*{8a3a7579-5ef1-448e-a7e3-2bf569f56ed4}*SharedItemsImports = 13
