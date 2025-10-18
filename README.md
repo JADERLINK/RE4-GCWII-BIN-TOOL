@@ -14,6 +14,14 @@ Programa destinado a extrair e reempacotar os arquivos BIN do RE4 OG GC/WII;
 
 ## Updates
 
+**Update: V.1.0.2**
+<br> Melhorado a velocidade do repack, para modelos que têm mais de um material.
+<br> Agora o programa vai criar BIN com o menor tamanho possível, economizando o máximo de dados repetidos.
+<br> Corrido o erro que acontecia ao extrair o arquivo BIN, quando tinha vertexColor inválido.
+<br> Ao fazer repack vai mostrar a ordem em que os materiais/meshes foram colocados no arquivo BIN, isso é usado para conferir se os materiais com transparência estão no final.
+<br> Corrigido o campo 'intensity_specular' que estava invertendo os canais Red e Blue no repack com MTL.
+<br> Foram feitas melhorias no código.
+
 **Update: V.1.0.1**
 <br> Corrigido bug dos materiais não serem ordenados em ordem alfabética;
 <br> Agora os materiais são ordenados em ordem alfabética, recomento que enumere os materiais, os materiais com texturas com transparência devem ficar no final;
@@ -79,4 +87,4 @@ Encontra-se em "RE4_GCWII_BIN_TOOL\\CjClutter.ObjLoader.Loader", código modific
 **At.te: JADERLINK**
 <br>Thanks to "mariokart64n" and "Biohazard4X"
 <br>Material information by "Albert"
-<br>2025-09-02
+<br>2025-10-18
