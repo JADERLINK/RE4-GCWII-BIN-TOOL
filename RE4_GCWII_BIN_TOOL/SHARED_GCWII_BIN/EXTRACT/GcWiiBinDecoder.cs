@@ -98,7 +98,7 @@ namespace SHARED_GCWII_BIN.EXTRACT
                 materials[i] = Get_Material(br, ref index_Vertex, ref index_Normal, ref index_UV, ref index_Color, IsModernStyle);
             }
 
-            True_Count = (index_Vertex + 1, index_Normal + 1, index_Color +1, index_UV + 1);
+            True_Count = (index_Vertex, index_Normal, index_Color, index_UV);
             return materials;
         }
 
@@ -189,24 +189,24 @@ namespace SHARED_GCWII_BIN.EXTRACT
                 FIndex.indexUV = br.ReadUInt16();
                 indexArr[i] = FIndex;
 
-                if (FIndex.indexVertex > index_Vertex)
+                if (FIndex.indexVertex >= index_Vertex)
                 {
-                    index_Vertex = FIndex.indexVertex;
+                    index_Vertex = FIndex.indexVertex + 1;
                 }
 
-                if (FIndex.indexNormal > index_Normal)
+                if (FIndex.indexNormal >= index_Normal)
                 {
-                    index_Normal = FIndex.indexNormal;
+                    index_Normal = FIndex.indexNormal + 1;
                 }
 
-                if (FIndex.indexUV > index_UV)
+                if (FIndex.indexUV >= index_UV)
                 {
-                    index_UV = FIndex.indexUV;
+                    index_UV = FIndex.indexUV + 1;
                 }
 
-                if (FIndex.indexColor > index_Color)
+                if (FIndex.indexColor >= index_Color)
                 {
-                    index_Color = FIndex.indexColor;
+                    index_Color = FIndex.indexColor + 1;
                 }
             }
 
@@ -474,13 +474,11 @@ namespace SHARED_GCWII_BIN.EXTRACT
                 ushort weightmap_index = br.ReadByte();
                 positions[i] = (vx, vy, vz, weightmap_index);
 
-                if (weightmap_index > WeightMap_Count)
+                if (weightmap_index >= WeightMap_Count)
                 {
-                    WeightMap_Count = weightmap_index;
+                    WeightMap_Count = weightmap_index + 1;
                 }
             }
-
-            WeightMap_Count += 1;
 
             return positions;
         }

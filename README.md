@@ -14,6 +14,9 @@ Programa destinado a extrair e reempacotar os arquivos BIN do RE4 OG GC/WII;
 
 ## Updates
 
+**Update: V.1.0.3**
+<br>Corrigido bug de não extrair arquivos BIN sem modelo 3D.
+
 **Update: V.1.0.2**
 <br> Melhorado a velocidade do repack, para modelos que têm mais de um material.
 <br> Agora o programa vai criar BIN com o menor tamanho possível, economizando o máximo de dados repetidos.
@@ -87,4 +90,4 @@ Encontra-se em "RE4_GCWII_BIN_TOOL\\CjClutter.ObjLoader.Loader", código modific
 **At.te: JADERLINK**
 <br>Thanks to "mariokart64n" and "Biohazard4X"
 <br>Material information by "Albert"
-<br>2025-10-18
+<br>2025-10-25
