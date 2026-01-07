@@ -14,6 +14,10 @@ Programa destinado a extrair e reempacotar os arquivos BIN do RE4 OG GC/WII;
 
 ## Updates
 
+**Update: V.1.0.4**
+<br> Corrigido erro: 0x11111111
+<br> Mudou o alinhamento de 16 para 32, era isso que causava o erro.
+
 **Update: V.1.0.3**
 <br>Corrigido bug de não extrair arquivos BIN sem modelo 3D.
 
@@ -90,4 +94,4 @@ Encontra-se em "RE4_GCWII_BIN_TOOL\\CjClutter.ObjLoader.Loader", código modific
 **At.te: JADERLINK**
 <br>Thanks to "mariokart64n" and "Biohazard4X"
 <br>Material information by "Albert"
-<br>2025-10-25
+<br>2026-01-07
